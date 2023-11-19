@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/s-brenner/swift-foundation",
       "state" : {
-        "revision" : "04c6406875f65b9029a8fdd50e48a2be22046171",
-        "version" : "0.2.0"
+        "revision" : "eed58a2e63efb952de9cf5195b982958563de27b",
+        "version" : "0.6.1"
       }
     },
     {
@@ -14,8 +14,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/s-brenner/swift-standard-library",
       "state" : {
-        "revision" : "d037aacdbd53edd7d023734c351931a47251e4ae",
-        "version" : "0.0.0"
+        "revision" : "2032cf44e91a4ba02bcda23c79360eeeac8e8580",
+        "version" : "0.1.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax",
+      "state" : {
+        "revision" : "6ad4ea24b01559dde0773e3d091f1b9e36175036",
+        "version" : "509.0.2"
       }
     }
   ],
