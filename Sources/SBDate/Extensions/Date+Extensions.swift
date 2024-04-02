@@ -66,13 +66,29 @@ extension Date {
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
     public struct DateRepresentableFormatStyle: Foundation.FormatStyle {
         
-        private var dateFormat: String
+        private enum Style: Codable, Hashable {
+            case formatted(String)
+            case dateStyled(DateFormatter.Style)
+            case timeStyled(DateFormatter.Style)
+        }
+        
+        private var style: Style
         
         private var region: Region?
         
         /// - Author: Scott Brenner | SBDate
         public static func format(_ dateFormat: String) -> Self {
-            Self(dateFormat: dateFormat)
+            Self(style: .formatted(dateFormat))
+        }
+        
+        /// - Author: Scott Brenner | SBDate
+        public static func format(date: DateFormatter.Style) -> Self {
+            Self(style: .dateStyled(date))
+        }
+        
+        /// - Author: Scott Brenner | SBDate
+        public static func format(time: DateFormatter.Style) -> Self {
+            Self(style: .timeStyled(time))
         }
         
         /// - Author: Scott Brenner | SBDate
@@ -84,9 +100,22 @@ extension Date {
         
         /// - Author: Scott Brenner | SBDate
         public func format(_ value: DateRepresentable) -> String {
-            DateFormatter
-                .shared(dateFormat: dateFormat, region: region ?? value.region)
-                .string(from: value.date)
+            switch style {
+            case .formatted(let format):
+                return DateFormatter
+                    .shared(dateFormat: format, region: region ?? value.region)
+                    .string(from: value.date)
+            case .dateStyled(let dateStyle):
+                return DateFormatter
+                    .shared(dateStyle: dateStyle, region: region ?? value.region)
+                    .string(from: value.date)
+            case .timeStyled(let timeStyle):
+                return DateFormatter
+                    .shared(timeStyle: timeStyle, region: region ?? value.region)
+                    .string(from: value.date)
+            }
         }
     }
 }
+
+extension DateFormatter.Style: Codable { }

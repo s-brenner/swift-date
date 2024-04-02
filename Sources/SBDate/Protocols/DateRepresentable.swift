@@ -250,25 +250,27 @@ extension DateRepresentable {
     
     // MARK: - Formatting
     
-    /// Returns a string representation of the date with the given format in the given region.
-    /// - Author: Scott Brenner | SBDate
-    /// - Parameter format: The date format.
-    /// - Parameter region: Region in which the date string must be represented. If `nil`, the receiver's region is used.
-    /// - Returns: A string representation of the date in the given region
-    @available(macOS, deprecated: 12.0, message: "Use formatted instead.")
-    @available(iOS, deprecated: 15.0, message: "Use formatted instead.")
-    @available(tvOS, deprecated: 15.0, message: "Use formatted instead.")
-    @available(watchOS, deprecated: 8.0, message: "Use formatted instead.")
-    public func toString(format: String, region: Region? = nil) -> String {
-        DateFormatter
-            .shared(dateFormat: format, region: region ?? self.region)
-            .string(from: date)
-    }
-    
     /// - Author: Scott Brenner | SBDate
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
     public func formatted(_ style: Date.DateRepresentableFormatStyle) -> String {
         style.format(self)
+    }
+    
+    /// - Author: Scott Brenner | SBDate
+    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
+    public func formatted(date: DateFormatter.Style, time: DateFormatter.Style, region: Region) -> String {
+        if date == .none && time == .none {
+            return ""
+        }
+        else if date == .none {
+            return formatted(.format(time: time).region(region))
+        }
+        else if time == .none {
+            return formatted(.format(date: date).region(region))
+        }
+        else {
+            return "\(formatted(.format(date: date).region(region))) at \(formatted(.format(time: time).region(region)))"
+        }
     }
     
     /// - Author: Scott Brenner | SBDate

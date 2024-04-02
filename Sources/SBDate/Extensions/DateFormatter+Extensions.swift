@@ -17,11 +17,16 @@ extension DateFormatter {
     /// - Parameter timeStyle: The time style of the returned formatter.
     /// - Parameter region: The region of the returned formatter.
     static func shared(
-        dateStyle: DateFormatter.Style,
-        timeStyle: DateFormatter.Style,
+        dateStyle: DateFormatter.Style = .none,
+        timeStyle: DateFormatter.Style = .none,
         region: Region = .default
     ) -> DateFormatter {
-        let name = "SBDate.\(String(describing: DateFormatter.self)).dateStyle=\(dateStyle.rawValue).timeStyle=\(timeStyle.rawValue)"
+        let name = """
+        SBDate
+        .\(String(describing: DateFormatter.self))
+        .dateStyle=\(dateStyle.rawValue)
+        .timeStyle=\(timeStyle.rawValue)
+        """
         let formatter: DateFormatter = threadSharedObject(key: name) {
             let formatter = DateFormatter()
             formatter.dateStyle = dateStyle
