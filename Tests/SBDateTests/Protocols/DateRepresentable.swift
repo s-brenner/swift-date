@@ -172,18 +172,16 @@ final class DateRepresentableTests: XCTestCase {
     }
     
     func testFormatted() {
-        let denver = TimeZone(identifier: "America/Denver")!.region
+        let denver = TimeZone.americaDenver.region
         XCTAssertEqual(date.formatted(format: "hh"), "15")
         XCTAssertEqual(date.in(region: denver).formatted(format: "hh"), "09")
         XCTAssertEqual(date.formatted(format: "hh", region: denver), "09")
         XCTAssertEqual(date.in(region: denver).formatted(format: "hh", region: .default), "15")
-        XCTAssertEqual(date.formatted(date: .none, time: .short, region: denver), "09:30")
-        XCTAssertEqual(date.formatted(date: .short, time: .none, region: denver), "9/15/18")
-        XCTAssertEqual(date.formatted(date: .none, time: .none, region: denver), "")
-        XCTAssertEqual(date.formatted(date: .short, time: .short, region: denver), "9/15/18 at 09:30")
-        XCTAssertEqual(date.formatted(date: .medium, time: .medium, region: denver), "Sep 15, 2018 at 09:30:12")
-        XCTAssertEqual(date.formatted(date: .long, time: .long, region: denver), "September 15, 2018 at 09:30:12 MDT")
-        XCTAssertEqual(date.formatted(date: .full, time: .full, region: denver), "Saturday, September 15, 2018 at 09:30:12 Mountain Daylight Time")
+        let format = Date.FormatStyle.dateTime
+            .hour()
+            .timeZone(.americaDenver)
+            .locale(.englishUnitedKingdom)
+        XCTAssertEqual(format.format(date.date), "09")
     }
     
     func testComponents() {

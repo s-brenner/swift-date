@@ -258,23 +258,6 @@ extension DateRepresentable {
     
     /// - Author: Scott Brenner | SBDate
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-    public func formatted(date: DateFormatter.Style, time: DateFormatter.Style, region: Region) -> String {
-        if date == .none && time == .none {
-            return ""
-        }
-        else if date == .none {
-            return formatted(.format(time: time).region(region))
-        }
-        else if time == .none {
-            return formatted(.format(date: date).region(region))
-        }
-        else {
-            return "\(formatted(.format(date: date).region(region))) at \(formatted(.format(time: time).region(region)))"
-        }
-    }
-    
-    /// - Author: Scott Brenner | SBDate
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
     public func formatted(format: String, region: Region? = nil) -> String {
         formatted(.format(format).region(region ?? self.region))
     }
