@@ -269,7 +269,7 @@ extension DateRepresentable {
     /// - Parameter components: Which components to compare.
     /// - Parameter end: The ending date.
     /// - Returns: The result of calculating the difference from self to end.
-    public func components(_ components: Set<Calendar.Component>, to end: any DateRepresentable) -> [Calendar.Component: Int] {
+    public func components(_ components: Set<Calendar.Component>, to end: some DateRepresentable) -> [Calendar.Component: Int] {
         region
             .calendar
             .dateComponents(components, from: date, to: end.date)
@@ -281,7 +281,7 @@ extension DateRepresentable {
     /// - Parameter component: Which component to compare.
     /// - Parameter end: The ending date.
     /// - Returns: The result of calculating the difference from self to end.
-    public func component(_ component: Calendar.Component, to end: any DateRepresentable) -> Int {
+    public func component(_ component: Calendar.Component, to end: some DateRepresentable) -> Int {
         components([component], to: end)[component]!
     }
     
@@ -290,8 +290,8 @@ extension DateRepresentable {
     /// DateInterval represents a closed date interval in the form of [startDate, endDate]. It is possible for the start and end dates to be the same with a duration of 0. DateInterval does not support reverse intervals i.e. intervals where the duration is less than 0 and the end date occurs earlier in time than the start date.
     /// - Author: Scott Brenner | SBDate
     /// - Parameter start: The start date.
-    public func dateIntervalSince(_ start: any DateRepresentable) -> DateInterval {
-        DateInterval(start: start.date, end: date)
+    public func dateIntervalSince(_ start: some DateRepresentable) -> DateInterval {
+        DateInterval(start: start, end: date)
     }
     
     /// The span of time between the receiver and a specific end date.
@@ -299,8 +299,8 @@ extension DateRepresentable {
     /// DateInterval represents a closed date interval in the form of [startDate, endDate]. It is possible for the start and end dates to be the same with a duration of 0. DateInterval does not support reverse intervals i.e. intervals where the duration is less than 0 and the end date occurs earlier in time than the start date.
     /// - Author: Scott Brenner | SBDate
     /// - Parameter end: The end date.
-    public func dateIntervalBefore(_ end: any DateRepresentable) -> DateInterval {
-        DateInterval(start: date, end: end.date)
+    public func dateIntervalBefore(_ end: some DateRepresentable) -> DateInterval {
+        DateInterval(start: date, end: end)
     }
     
     /// - Author: Scott Brenner | SBDate
@@ -314,17 +314,17 @@ extension DateRepresentable {
     }
     
     /// - Author: Scott Brenner | SBDate
-    public func dateComponentsSince(_ start: any DateRepresentable) -> DateComponents {
+    public func dateComponentsSince(_ start: some DateRepresentable) -> DateComponents {
         guard start.date <= date
-        else { return -DateInterval(start: date, end: start.date).dateComponents }
-        return DateInterval(start: start.date, end: date).dateComponents
+        else { return -DateInterval(start: date, end: start).dateComponents }
+        return DateInterval(start: start, end: date).dateComponents
     }
     
     /// - Author: Scott Brenner | SBDate
-    public func dateComponentsBefore(_ end: any DateRepresentable) -> DateComponents {
+    public func dateComponentsBefore(_ end: some DateRepresentable) -> DateComponents {
         guard date <= end.date
-        else { return -DateInterval(start: end.date, end: date).dateComponents }
-        return DateInterval(start: date, end: end.date).dateComponents
+        else { return -DateInterval(start: end, end: date).dateComponents }
+        return DateInterval(start: date, end: end).dateComponents
     }
     
     /// - Author: Scott Brenner | SBDate
@@ -341,6 +341,16 @@ extension DateRepresentable {
 /// - Author: Scott Brenner | SBDate
 public func < (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
     lhs.date < rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
+public func < (lhs: DateInterval, rhs: DateComponents) -> Bool {
+    lhs.dateComponents < rhs
+}
+
+/// - Author: Scott Brenner | SBDate
+public func == (lhs: DateInterval, rhs: DateComponents) -> Bool {
+    lhs.dateComponents.duration == rhs.duration
 }
 
 /// - Author: Scott Brenner | SBDate

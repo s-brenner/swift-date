@@ -206,17 +206,17 @@ final class DateRepresentableTests: XCTestCase {
         XCTAssertEqual(start.dateIntervalBefore(end), end.dateIntervalSince(start))
     }
     
-//    func testDateComponentsSince() {
-//        let date = DateInRegion(year: 2100, month: 2, day: 14)
-//        XCTAssertTrue(Date().dateComponentsSince(date) < 0.minutes)
-//        XCTAssertTrue(date.dateComponentsSinceNow > 7.days)
-//    }
-//
-//    func testDateComponentsBefore() {
-//        let date = DateInRegion(year: 2020, month: 2, day: 14)
-//        XCTAssertTrue(Date().dateComponentsBefore(date) < 0.minutes)
-//        XCTAssertTrue(date.dateComponentsBeforeNow > 7.days)
-//    }
+    func testDateComponentsSince() {
+        let date = DateInRegion(year: 2100, month: 2, day: 14)
+        XCTAssertTrue(Date().dateComponentsSince(date) < 0.minutes)
+        XCTAssertTrue(date.dateComponentsSinceNow > 7.days)
+    }
+
+    func testDateComponentsBefore() {
+        let date = DateInRegion(year: 2020, month: 2, day: 14)
+        XCTAssertTrue(Date().dateComponentsBefore(date) < 0.minutes)
+        XCTAssertTrue(date.dateComponentsBeforeNow > 7.days)
+    }
     
     func testMath() {
         let start = DateInRegion(year: 2018, month: 9, day: 15, hour: 19)
@@ -225,5 +225,9 @@ final class DateRepresentableTests: XCTestCase {
         XCTAssertEqual(end - start, DateInterval(start: start, end: end))
         XCTAssertEqual(start + DateComponents(hour: 1), end)
         XCTAssertEqual(end - DateComponents(hour: 1), start)
+        XCTAssertFalse(end - start < 1.hours)
+        XCTAssertTrue(end - start < (1.hours + 1.seconds))
+        XCTAssertFalse(end - start == (1.hours + 1.seconds))
+        XCTAssertTrue(end - start == 1.hours)
     }
 }
