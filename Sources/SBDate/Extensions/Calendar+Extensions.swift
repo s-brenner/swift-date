@@ -8,7 +8,11 @@ extension Calendar {
     /// - Parameter start: The starting date.
     /// - Parameter end: The ending date.
     /// - Returns: The result of calculating the difference from start to end.
-    public func dateComponents(_ components: Set<Calendar.Component>, from start: DateRepresentable, to end: DateRepresentable) -> DateComponents {
+    public func dateComponents(
+        _ components: Set<Calendar.Component>,
+        from start: some DateRepresentable,
+        to end: some DateRepresentable
+    ) -> DateComponents {
         dateComponents(components, from: start.date, to: end.date)
     }
 }

@@ -16,17 +16,17 @@ extension DateInterval {
     }
     
     /// - Author: Scott Brenner | SBDate
-    public init(start: DateRepresentable, end: DateRepresentable) {
+    public init(start: some DateRepresentable, end: some DateRepresentable) {
         self.init(start: start.date, end: end.date)
     }
     
     /// - Author: Scott Brenner | SBDate
-    public init(start: DateRepresentable, duration: TimeInterval) {
+    public init(start: some DateRepresentable, duration: TimeInterval) {
         self.init(start: start.date, duration: duration)
     }
     
     /// - Author: Scott Brenner | SBDate
-    public init(start: DateRepresentable, duration: DateComponents) {
+    public init(start: some DateRepresentable, duration: DateComponents) {
         self.init(start: start.date, end: (start + duration).date)
     }
 }

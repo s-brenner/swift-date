@@ -1,7 +1,7 @@
 import Foundation
 
 /// - Author: Scott Brenner | SBDate
-public struct DateInRegion: Hashable, Codable, Sendable {
+public struct DateInRegion: Codable, Comparable, Hashable, Sendable {
     
     /// Absolute date represented. This date is not associated with any timezone or calendar but represent the absolute number of seconds since Jan 1, 2001 at 00:00:00 UTC.
     /// - Author: Scott Brenner | SBDate
@@ -81,12 +81,5 @@ extension DateInRegion: DateRepresentable {
     
     public static func distantFuture() -> Self {
         DateInRegion(.distantFuture, region: .default)
-    }
-}
-
-extension DateInRegion: Comparable {
-    
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        lhs.date < rhs.date
     }
 }

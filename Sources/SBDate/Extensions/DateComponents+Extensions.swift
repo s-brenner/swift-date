@@ -22,7 +22,7 @@ extension DateComponents {
     /// ````
     /// - Author: Scott Brenner | SBDate
     /// - Parameter date: The date to add `self` to.
-    public func before(_ date: DateRepresentable) -> Date? {
+    public func before(_ date: some DateRepresentable) -> Date? {
         date.calendar.date(byAdding: -self, to: date.date)
     }
     
@@ -34,7 +34,7 @@ extension DateComponents {
     /// ````
     /// - Author: Scott Brenner | SBDate
     /// - Parameter date: The date to add `self` to.
-    public func from(_ date: DateRepresentable) -> Date? {
+    public func from(_ date: some DateRepresentable) -> Date? {
         date.calendar.date(byAdding: self, to: date.date)
     }
     

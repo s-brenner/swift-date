@@ -100,7 +100,7 @@ extension Date {
         }
         
         /// - Author: Scott Brenner | SBDate
-        public func format(_ value: DateRepresentable) -> String {
+        public func format(_ value: any DateRepresentable) -> String {
             switch style {
             case .formatted(let format):
                 return DateFormatter

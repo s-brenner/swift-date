@@ -23,6 +23,7 @@ final class DateInRegionTests: XCTestCase {
             DateInRegion(timeIntervalSince1970: 0),
             DateInRegion(timeIntervalSince1970: 1)
         )
+        XCTAssertTrue(DateInRegion(timeIntervalSince1970: 0) < Date(timeIntervalSince1970: 1))
     }
     
     func testCodable() {

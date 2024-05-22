@@ -269,7 +269,7 @@ extension DateRepresentable {
     /// - Parameter components: Which components to compare.
     /// - Parameter end: The ending date.
     /// - Returns: The result of calculating the difference from self to end.
-    public func components(_ components: Set<Calendar.Component>, to end: DateRepresentable) -> [Calendar.Component: Int] {
+    public func components(_ components: Set<Calendar.Component>, to end: any DateRepresentable) -> [Calendar.Component: Int] {
         region
             .calendar
             .dateComponents(components, from: date, to: end.date)
@@ -281,7 +281,7 @@ extension DateRepresentable {
     /// - Parameter component: Which component to compare.
     /// - Parameter end: The ending date.
     /// - Returns: The result of calculating the difference from self to end.
-    public func component(_ component: Calendar.Component, to end: DateRepresentable) -> Int {
+    public func component(_ component: Calendar.Component, to end: any DateRepresentable) -> Int {
         components([component], to: end)[component]!
     }
     
@@ -290,7 +290,7 @@ extension DateRepresentable {
     /// DateInterval represents a closed date interval in the form of [startDate, endDate]. It is possible for the start and end dates to be the same with a duration of 0. DateInterval does not support reverse intervals i.e. intervals where the duration is less than 0 and the end date occurs earlier in time than the start date.
     /// - Author: Scott Brenner | SBDate
     /// - Parameter start: The start date.
-    public func dateIntervalSince(_ start: DateRepresentable) -> DateInterval {
+    public func dateIntervalSince(_ start: any DateRepresentable) -> DateInterval {
         DateInterval(start: start.date, end: date)
     }
     
@@ -299,7 +299,7 @@ extension DateRepresentable {
     /// DateInterval represents a closed date interval in the form of [startDate, endDate]. It is possible for the start and end dates to be the same with a duration of 0. DateInterval does not support reverse intervals i.e. intervals where the duration is less than 0 and the end date occurs earlier in time than the start date.
     /// - Author: Scott Brenner | SBDate
     /// - Parameter end: The end date.
-    public func dateIntervalBefore(_ end: DateRepresentable) -> DateInterval {
+    public func dateIntervalBefore(_ end: any DateRepresentable) -> DateInterval {
         DateInterval(start: date, end: end.date)
     }
     
@@ -314,14 +314,14 @@ extension DateRepresentable {
     }
     
     /// - Author: Scott Brenner | SBDate
-    public func dateComponentsSince(_ start: DateRepresentable) -> DateComponents {
+    public func dateComponentsSince(_ start: any DateRepresentable) -> DateComponents {
         guard start.date <= date
         else { return -DateInterval(start: date, end: start.date).dateComponents }
         return DateInterval(start: start.date, end: date).dateComponents
     }
     
     /// - Author: Scott Brenner | SBDate
-    public func dateComponentsBefore(_ end: DateRepresentable) -> DateComponents {
+    public func dateComponentsBefore(_ end: any DateRepresentable) -> DateComponents {
         guard date <= end.date
         else { return -DateInterval(start: end.date, end: date).dateComponents }
         return DateInterval(start: date, end: end.date).dateComponents
@@ -339,17 +339,22 @@ extension DateRepresentable {
 }
 
 /// - Author: Scott Brenner | SBDate
-public func -(lhs: DateRepresentable, rhs: DateRepresentable) -> DateInterval {
+public func < (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
+    lhs.date < rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
+public func - (lhs: some DateRepresentable, rhs: some DateRepresentable) -> DateInterval {
     DateInterval(start: rhs.date, end: lhs.date)
 }
 
 /// - Author: Scott Brenner | SBDate
-public func +(lhs: DateRepresentable, rhs: DateComponents) -> DateInRegion {
+public func + (lhs: some DateRepresentable, rhs: DateComponents) -> DateInRegion {
     let nextDate = lhs.calendar.date(byAdding: rhs, to: lhs.date)
     return DateInRegion(nextDate!, region: lhs.region)
 }
 
 /// - Author: Scott Brenner | SBDate
-public func -(lhs: DateRepresentable, rhs: DateComponents) -> DateInRegion {
+public func - (lhs: some DateRepresentable, rhs: DateComponents) -> DateInRegion {
     lhs + (-rhs)
 }
