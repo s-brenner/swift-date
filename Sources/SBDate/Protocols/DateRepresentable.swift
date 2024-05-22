@@ -344,13 +344,73 @@ public func < (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool
 }
 
 /// - Author: Scott Brenner | SBDate
+public func > (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
+    lhs.date > rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
+public func <= (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
+    lhs.date <= rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
+public func >= (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
+    lhs.date >= rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
+public func == (lhs: some DateRepresentable, rhs: some DateRepresentable) -> Bool {
+    lhs.date == rhs.date
+}
+
+/// - Author: Scott Brenner | SBDate
 public func < (lhs: DateInterval, rhs: DateComponents) -> Bool {
-    lhs.dateComponents < rhs
+    lhs.dateComponents.duration < rhs.duration
+}
+
+/// - Author: Scott Brenner | SBDate
+public func > (lhs: DateInterval, rhs: DateComponents) -> Bool {
+    lhs.dateComponents.duration > rhs.duration
+}
+
+/// - Author: Scott Brenner | SBDate
+public func <= (lhs: DateInterval, rhs: DateComponents) -> Bool {
+    lhs.dateComponents.duration <= rhs.duration
+}
+
+/// - Author: Scott Brenner | SBDate
+public func >= (lhs: DateInterval, rhs: DateComponents) -> Bool {
+    lhs.dateComponents.duration >= rhs.duration
 }
 
 /// - Author: Scott Brenner | SBDate
 public func == (lhs: DateInterval, rhs: DateComponents) -> Bool {
     lhs.dateComponents.duration == rhs.duration
+}
+
+/// - Author: Scott Brenner | SBDate
+public func < (lhs: DateComponents, rhs: DateInterval) -> Bool {
+    rhs > lhs
+}
+
+/// - Author: Scott Brenner | SBDate
+public func > (lhs: DateComponents, rhs: DateInterval) -> Bool {
+    rhs < lhs
+}
+
+/// - Author: Scott Brenner | SBDate
+public func <= (lhs: DateComponents, rhs: DateInterval) -> Bool {
+    rhs >= lhs
+}
+
+/// - Author: Scott Brenner | SBDate
+public func >= (lhs: DateComponents, rhs: DateInterval) -> Bool {
+    rhs <= lhs
+}
+
+/// - Author: Scott Brenner | SBDate
+public func == (lhs: DateComponents, rhs: DateInterval) -> Bool {
+    rhs == lhs
 }
 
 /// - Author: Scott Brenner | SBDate

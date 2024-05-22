@@ -220,14 +220,27 @@ final class DateRepresentableTests: XCTestCase {
     
     func testMath() {
         let start = DateInRegion(year: 2018, month: 9, day: 15, hour: 19)
-        let end = DateInRegion(year: 2018, month: 9, day: 15, hour: 20)
+        let end = Date(year: 2018, month: 9, day: 15, hour: 20)
         
-        XCTAssertEqual(end - start, DateInterval(start: start, end: end))
-        XCTAssertEqual(start + DateComponents(hour: 1), end)
-        XCTAssertEqual(end - DateComponents(hour: 1), start)
-        XCTAssertFalse(end - start < 1.hours)
-        XCTAssertTrue(end - start < (1.hours + 1.seconds))
-        XCTAssertFalse(end - start == (1.hours + 1.seconds))
+        XCTAssertTrue(start < end)
+        XCTAssertTrue(end > start)
+        XCTAssertTrue(start <= end)
+        XCTAssertTrue(end >= start)
+        XCTAssertFalse(start == end)
+        
+        XCTAssertTrue(end - start < 1.hours + 1.seconds)
+        XCTAssertTrue(end - start > 59.minutes + 59.seconds)
+        XCTAssertTrue(end - start <= 1.hours)
+        XCTAssertTrue(end - start >= 1.hours)
         XCTAssertTrue(end - start == 1.hours)
+        XCTAssertTrue(59.minutes + 59.seconds < end - start)
+        XCTAssertTrue(1.hours + 1.seconds > end - start)
+        XCTAssertTrue(1.hours <= end - start)
+        XCTAssertTrue(1.hours >= end - start)
+        XCTAssertTrue(1.hours == end - start)
+
+        XCTAssertEqual(end - start, DateInterval(start: start, end: end))
+        XCTAssertTrue(start + DateComponents(hour: 1) == end)
+        XCTAssertEqual(end - DateComponents(hour: 1), start)
     }
 }
