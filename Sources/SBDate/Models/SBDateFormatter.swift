@@ -1,7 +1,7 @@
 import SBFoundation
 
 /// A lightweight date formatter that is much faster than a traditional DateFormatter.
-public struct SBDateFormatter {
+public struct SBDateFormatter: Sendable {
     
     public enum DayOfWeek: Int {
         case sunday = 0
