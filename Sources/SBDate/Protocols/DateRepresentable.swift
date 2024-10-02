@@ -1,4 +1,4 @@
-import Foundation
+import SBFoundation
 
 /// - Author: Scott Brenner | SBDate
 public protocol DateRepresentable: RegionRepresentable {
@@ -57,9 +57,7 @@ extension DateRepresentable {
     /// - Author: Scott Brenner | SBDate
     /// - Parameter components: The calendar components to include.
     public func dateComponents(
-        _ components: Set<Calendar.Component> = [
-            .era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .nanosecond, .calendar, .timeZone
-        ]
+        _ components: Set<Calendar.Component> = Set(Calendar.Component.allCases)
     ) -> DateComponents {
         region.calendar.dateComponents(components, from: date)
     }

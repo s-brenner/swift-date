@@ -1,5 +1,5 @@
 {
-  "originHash" : "3837931d0e9574cd8286876ddba402455799e6a8f1f19ac3b414110095135d50",
+  "originHash" : "cf2e8eaf42bfef3541cea5063713009a16a72762fa6e89c3083913748a3e41b4",
   "pins" : [
     {
       "identity" : "swift-collections",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/s-brenner/swift-foundation",
       "state" : {
-        "revision" : "7189eb84192157962c693d933c319dcfb0978eae",
-        "version" : "0.18.0"
+        "revision" : "5297d9b6a38e98fc5e918af9d6aa1276cdf04b03",
+        "version" : "0.18.2"
       }
     },
     {
